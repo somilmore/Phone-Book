@@ -1,4 +1,4 @@
-package com.example.PhoneBook.entity;
+package com.example.PhoneBook.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
