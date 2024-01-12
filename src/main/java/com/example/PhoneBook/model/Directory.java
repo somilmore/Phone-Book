@@ -11,8 +11,6 @@ public class Directory {
 	
 	private String name;
 	
-	private String address;
-	
 
 	public Long getNumber() {
 		return number;
@@ -30,25 +28,17 @@ public class Directory {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 
-	public Directory(Long number, String name, String address, String occupation) {
+	public Directory(Long number, String name) {
 		super();
 		this.number = number;
 		this.name = name;
-		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "Directory [number=" + number + ", name=" + name + ", address=" + address 
+		return "Directory [number=" + number + ", name=" + name 
 				+ "]";
 	}
 
