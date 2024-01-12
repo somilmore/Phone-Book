@@ -10,8 +10,6 @@ public class Directory{
 	private Long number;
 	
 	private String name;
-	
-	private String education;
 
 	public Long getNumber() {
 		return number;
@@ -31,24 +29,15 @@ public class Directory{
 
 
 
-	public String getEducation() {
-		return education;
-	}
-
-	public void setEducation(String education) {
-		this.education = education;
-	}
-
 	@Override
 	public String toString() {
-		return "Directory [number=" + number + ", name=" + name + ", education=" + education + "]";
+		return "Directory [number=" + number + ", name=" + name + "]";
 	}
 
-	public Directory(Long number, String name, String education) {
+	public Directory(Long number, String name) {
 		super();
 		this.number = number;
 		this.name = name;
-		this.education = education;
 	}
 
 	
