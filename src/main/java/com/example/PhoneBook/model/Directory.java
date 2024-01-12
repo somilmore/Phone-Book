@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity(name = "directory")
-public class Directory {
+public class Directory{
 
 	@Id
 	private Long number;
