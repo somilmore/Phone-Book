@@ -40,5 +40,4 @@ public class Directory{
 		this.name = name;
 	}
 
-	
 }
