@@ -32,7 +32,7 @@
                 <dependency>
    			<groupId>org.sonarsource.scanner.maven</groupId>
     			<artifactId>sonar-maven-plugin</artifactId>
-    			<version>3.10.1.1854</version>
+    			<version>3.8.0.2131</version>
 		</dependency>
 
 		<dependency>
@@ -92,7 +92,7 @@
 			<plugin>
             			<groupId>org.sonarsource.scanner.maven</groupId>
             			<artifactId>sonar-maven-plugin</artifactId>
-            			<version>3.10.1.1854</version> <!-- Use the latest version -->
+            			<version>3.8.0.2131</version> <!-- Use the latest version -->
         		</plugin>
 		</plugins>
 	</build>
