@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 @Entity(name = "directory")
 public class Directory{
 
+	#tablefields
 	@Id
 	private Long number;
 	
