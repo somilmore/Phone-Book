@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 public class Directory{
 
 	@Id
+	private int id;
+	
 	private Long number;
 	
 	private String name;
@@ -27,17 +29,32 @@ public class Directory{
 		this.name = name;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return "Directory [number=" + number + ", name=" + name + "]";
+		return "Directory [id=" + id + ", number=" + number + ", name=" + name + "]";
 	}
 
-	public Directory(Long number, String name) {
+	public Directory(int id, String name, Long number) {
 		super();
+		this.id = id;
 		this.number = number;
 		this.name = name;
 	}
+
+	public Directory() {
+		super();
+	}
+
+
+
+	
 
 }
