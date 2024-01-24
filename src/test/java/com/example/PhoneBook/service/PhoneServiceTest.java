@@ -28,7 +28,7 @@ public class PhoneServiceTest {
 
     @Test
     public void testCreateRecord() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         entry.setId(1);
 
         when(phoneRepository.findById(1)).thenReturn(Optional.empty());
@@ -43,7 +43,7 @@ public class PhoneServiceTest {
 
     @Test
     public void testCreateRecordRecordExists() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         entry.setId(1);
 
         when(phoneRepository.findById(1)).thenReturn(Optional.of(entry));
@@ -74,7 +74,7 @@ public class PhoneServiceTest {
 
     @Test
     public void testUpdateRecord() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         entry.setId(1);
 
         when(phoneRepository.findById(1)).thenReturn(Optional.of(entry));
@@ -89,7 +89,7 @@ public class PhoneServiceTest {
 
     @Test
     public void testUpdateRecordRecordNotExists() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         entry.setId(1);
 
         when(phoneRepository.findById(1)).thenReturn(Optional.empty());

@@ -29,7 +29,7 @@ public class HomeControllerTest {
 
     @Test
     public void testCreate() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         when(phoneService.createRecord(entry)).thenReturn("Record added successfully");
 
         String result = homeController.create(entry);
@@ -53,7 +53,7 @@ public class HomeControllerTest {
 
     @Test
     public void testUpdate() {
-        Directory entry = new Directory();
+        Directory entry = new Directory(1,"Somil",8104750509L);
         when(phoneService.updateRecord(entry)).thenReturn("Record Updated");
 
         String result = homeController.update(entry);
