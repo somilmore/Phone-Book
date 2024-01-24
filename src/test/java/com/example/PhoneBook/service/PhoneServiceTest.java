@@ -16,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.PhoneBook.model.Directory;
 import com.example.PhoneBook.repository.PhoneRepository;
-import com.example.PhoneBook.service.PhoneService;
 
 @SpringBootTest
 public class PhoneServiceTest {
