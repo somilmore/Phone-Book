@@ -177,9 +177,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>${argLine} -XX:PermSize=256m -XX:MaxPermSize=1048m</argLine>
-				</configuration>
+				<version>3.2.3</version>
 			</plugin>
 
 			<plugin>
