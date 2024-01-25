@@ -1,113 +1,163 @@
 package com.example.PhoneBook.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.example.PhoneBook.model.Directory;
 import com.example.PhoneBook.repository.PhoneRepository;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class PhoneServiceTest {
+
+    @Mock
+    private List<Directory> mockDirectoryList;
 
     @InjectMocks
     private PhoneService phoneService;
-
+    
     @Mock
-    private PhoneRepository phoneRepository;
-
-    @Test
-    public void testCreateRecord() {
-        Directory entry = new Directory(1,"Somil",8104750509L);
-        entry.setId(1);
-
-        when(phoneRepository.findById(1)).thenReturn(Optional.empty());
-        when(phoneRepository.save(entry)).thenReturn(entry);
-
-        String result = phoneService.createRecord(entry);
-
-        assertEquals("Record added successfully", result);
-        verify(phoneRepository, times(1)).findById(1);
-        verify(phoneRepository, times(1)).save(entry);
-    }
-
-    @Test
-    public void testCreateRecordRecordExists() {
-        Directory entry = new Directory(1,"Somil",8104750509L);
-        entry.setId(1);
-
-        when(phoneRepository.findById(1)).thenReturn(Optional.of(entry));
-
-        String result = phoneService.createRecord(entry);
-
-        assertEquals("Record is already present", result);
-        verify(phoneRepository, times(1)).findById(1);
-        verify(phoneRepository, never()).save(entry);
-    }
+    private PhoneRepository mockRepository;
 
     @Test
     public void testGetList() throws JSONException {
-        List<Directory> list = new ArrayList<>();
-        list.add(new Directory(1, "John", 12345L));
+        // Mocking Directory objects
+        Directory directory1 = new Directory(1, "John", 1234567890L);
+        Directory directory2 = new Directory(2, "Jane", 9876543210L);
 
-        List<JSONObject> expected = new ArrayList<>();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("ID", 1);
-        jsonObject.put("Name", "John");
-        jsonObject.put("Phone Number", "12345");
-        expected.add(jsonObject);
+        // Mocking the behavior of the repository findAll method
+        when(mockDirectoryList.size()).thenReturn(2);
+        when(mockDirectoryList.get(0)).thenReturn(directory1);
+        when(mockDirectoryList.get(1)).thenReturn(directory2);
 
-        List<JSONObject> result = phoneService.getList(list);
+        // Testing the getList method
+        List<JSONObject> result = phoneService.getList(mockDirectoryList);
 
-        assertEquals(expected, result);
+        // Asserting the result
+        assertEquals(2, result.size());
+
+        JSONObject entry1 = result.get(0);
+        assertEquals(1, entry1.getInt("ID"));
+        assertEquals("John", entry1.getString("Name"));
+        assertEquals(1234567890L, entry1.getString("Phone Number"));
+
+        JSONObject entry2 = result.get(1);
+        assertEquals(2, entry2.getInt("ID"));
+        assertEquals("Jane", entry2.getString("Name"));
+        assertEquals(9876543210L, entry2.getString("Phone Number"));
+    }
+    
+    @Test
+    public void testCreateRecordRecordAlreadyPresent() {
+        // Mocking the behavior of the repository findById method
+        when(mockRepository.findById(1)).thenReturn(Optional.of(new Directory()));
+
+        // Creating a directory entry with an existing ID
+        Directory entry = new Directory();
+        entry.setId(1);
+        entry.setName("Test Name");
+        entry.setNumber(1234567890L);
+
+        // Testing the createRecord method
+        String result = phoneService.createRecord(entry);
+
+        // Asserting the result
+        assertEquals("Record is already present", result);
+
+        // Verifying that repository save method is not called
+        verify(mockRepository, never()).save(any());
     }
 
     @Test
-    public void testUpdateRecord() {
-        Directory entry = new Directory(1,"Somil",8104750509L);
+    public void testCreateRecordRecordAddedSuccessfully() {
+        // Mocking the behavior of the repository findById method
+        when(mockRepository.findById(1)).thenReturn(Optional.empty());
+
+        // Creating a directory entry with a non-existing ID
+        Directory entry = new Directory();
         entry.setId(1);
+        entry.setName("Test Name");
+        entry.setNumber(1234567890L);
 
-        when(phoneRepository.findById(1)).thenReturn(Optional.of(entry));
-        when(phoneRepository.save(entry)).thenReturn(entry);
+        // Testing the createRecord method
+        String result = phoneService.createRecord(entry);
 
+        // Asserting the result
+        assertEquals("Record added successfully", result);
+
+        // Verifying that repository save method is called once with the provided entry
+        verify(mockRepository, times(1)).save(entry);
+    }
+    
+    @Test
+    public void testUpdateRecordRecordExists() {
+        // Mocking the behavior of the repository findById method
+        when(mockRepository.findById(1)).thenReturn(Optional.of(new Directory()));
+
+        // Creating a directory entry with an existing ID
+        Directory entry = new Directory();
+        entry.setId(1);
+        entry.setName("Test Name");
+        entry.setNumber(1234567890L);
+
+        // Testing the updateRecord method
         String result = phoneService.updateRecord(entry);
 
+        // Asserting the result
         assertEquals("Record Updated", result);
-        verify(phoneRepository, times(1)).findById(1);
-        verify(phoneRepository, times(1)).save(entry);
+
+        // Verifying that repository save method is called once with the provided entry
+        verify(mockRepository, times(1)).save(entry);
     }
 
     @Test
-    public void testUpdateRecordRecordNotExists() {
-        Directory entry = new Directory(1,"Somil",8104750509L);
+    public void testUpdateRecordRecordDoesNotExist() {
+        // Mocking the behavior of the repository findById method
+        when(mockRepository.findById(1)).thenReturn(Optional.empty());
+
+        // Creating a directory entry with a non-existing ID
+        Directory entry = new Directory();
         entry.setId(1);
+        entry.setName("Test Name");
+        entry.setNumber(1234567890L);
 
-        when(phoneRepository.findById(1)).thenReturn(Optional.empty());
-
+        // Testing the updateRecord method
         String result = phoneService.updateRecord(entry);
 
+        // Asserting the result
         assertEquals("Record does not exist", result);
-        verify(phoneRepository, times(1)).findById(1);
-        verify(phoneRepository, never()).save(entry);
-    }
 
+        // Verifying that repository save method is not called
+        verify(mockRepository, never()).save(any());
+    }
+    
     @Test
     public void testDeleteRecord() {
-        int id = 1;
+        // Mocking the behavior of the repository deleteById method
+        doNothing().when(mockRepository).deleteById(1);
 
-        String result = phoneService.deleteRecord(id);
+        // Testing the deleteRecord method
+        String result = phoneService.deleteRecord(1);
 
+        // Asserting the result
         assertEquals("Record deleted successfully", result);
-        verify(phoneRepository, times(1)).deleteById(id);
+
+        // Verifying that repository deleteById method is called once with the provided ID
+        verify(mockRepository, times(1)).deleteById(1);
     }
 }
