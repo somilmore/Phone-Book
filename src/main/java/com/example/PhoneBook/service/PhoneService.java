@@ -1,6 +1,7 @@
 package com.example.PhoneBook.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -50,16 +51,16 @@ public class PhoneService {
 	}
 	
 	public String updateRecord(Directory entry) {
-		
-		Optional<Directory> record = repository.findById(entry.getId());
-		
-		if(record==null)
-			return "Record does not exists";
-		
-		repository.save(entry);
-		
-		return "Record Updated";
+	    Optional<Directory> record = repository.findById(entry.getId());
+
+	    if (!record.isPresent()) {
+	        return "Record does not exist";
+	    }
+
+	    repository.save(entry);
+	    return "Record Updated";
 	}
+
 	
 	public String deleteRecord(int id) {
 		repository.deleteById(id);
