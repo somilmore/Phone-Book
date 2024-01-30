@@ -168,6 +168,8 @@
 				<version>3.8.0.2131</version> <!-- Use the latest version -->
 			</plugin>
 		</plugins>
+		
+		<finalName>Phone-Book</finalName>
 	</build>
 
 </project>
