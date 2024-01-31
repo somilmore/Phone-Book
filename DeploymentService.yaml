@@ -17,7 +17,7 @@ spec:
           image: somilmore/phone-book  # Updated Docker image
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080   # Spring Boot application port (assuming it's running on 8080)
+            - containerPort: 8009   # Spring Boot application port (assuming it's running on 8080)
 ---
 kind: Service
 apiVersion: v1
@@ -29,5 +29,5 @@ spec:
   ports:
     - protocol: TCP
       port: 8080      # Port on which the service will be exposed
-      targetPort: 8080   # Target port of the Spring Boot application
+      targetPort: 8009   # Target port of the Spring Boot application
   type: NodePort       # Expose the service using NodePort
