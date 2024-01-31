@@ -24,12 +24,10 @@ apiVersion: v1
 metadata:
   name: devops-service
 spec:
-  externalIPs:
-    - 192.168.49.2
   selector:
     app: devops
   ports:
     - protocol: TCP
       port: 8080      # Port on which the service will be exposed
       targetPort: 8009   # Target port of the Spring Boot application
-  type: NodePort       # Expose the service using NodePort
+  type: LoadBalancer        # Expose the service using NodePort
