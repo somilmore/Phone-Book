@@ -53,9 +53,8 @@ public class PhoneService {
 	public String updateRecord(Directory entry) {
 	    Optional<Directory> record = repository.findById(entry.getId());
 
-	    if (!record.isPresent()) {
+	    if (!record.isPresent()) 
 	        return "Record does not exist";
-	    }
 
 	    repository.save(entry);
 	    return "Record Updated";

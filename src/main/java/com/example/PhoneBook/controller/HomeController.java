@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +28,9 @@ public class HomeController {
 	PhoneService service;
 	
 	@PostMapping("/create")
-	public String create(@RequestBody Directory entry) {
+	public ResponseEntity<String> create(@RequestBody Directory entry) {
 		
-		return service.createRecord(entry);
+		return ResponseEntity.ok(service.createRecord(entry));
 	}
 	
 	@GetMapping("/get")
@@ -45,15 +46,14 @@ public class HomeController {
 	}
 	
 	@PutMapping("/update")
-	public String update(@RequestBody Directory entry) {
+	public ResponseEntity<String> update(@RequestBody Directory entry) {
 		
-		return service.updateRecord(entry);
+		return ResponseEntity.ok(service.updateRecord(entry));
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String delete(@PathVariable int id ) {
+	public ResponseEntity<String> delete(@PathVariable int id ) {
 		
-		return service.deleteRecord(id);
+		return ResponseEntity.ok(service.deleteRecord(id));
 	}
 }
-
