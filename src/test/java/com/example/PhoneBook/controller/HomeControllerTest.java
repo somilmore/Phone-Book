@@ -59,7 +59,7 @@ public class HomeControllerTest {
     }
     
     @Test
-    public void testCreateRecord_Success() throws Exception {
+    public void testCreateRecord() throws Exception {
         // Arrange
         Directory directory = new Directory();
         directory.setId(1);
@@ -74,7 +74,7 @@ public class HomeControllerTest {
     }
     
     @Test
-    public void testUpdateRecord_Success() throws Exception {
+    public void testUpdateRecord() throws Exception {
         // Arrange
         Directory directory = new Directory();
         directory.setId(1);
@@ -90,7 +90,7 @@ public class HomeControllerTest {
     }
     
     @Test
-    public void testDeleteRecord_Success() throws Exception {
+    public void testDeleteRecord() throws Exception {
         // Arrange
         int id = 1;
         
