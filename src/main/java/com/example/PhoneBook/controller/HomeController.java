@@ -38,7 +38,7 @@ public class HomeController {
 		List<Directory> list = repository.findAll();
 		
 		if(list.size()==0)
-			return "Database is empty";
+			return "Hello World";
 			
 		List<JSONObject> ans = service.getList(list);
 		
