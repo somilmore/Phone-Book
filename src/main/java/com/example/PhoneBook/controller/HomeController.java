@@ -38,7 +38,7 @@ public class HomeController {
 		List<Directory> list = repository.findAll();
 		
 		if(list.size()==0)
-			return "Hello World";
+			return "Hello World Kyzer";
 			
 		List<JSONObject> ans = service.getList(list);
 		
