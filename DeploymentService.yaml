@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: devops
-          image: somilmore/phone-book  # Updated Docker image
+          image: somilmore/phone-book:latest  # Updated Docker image
           imagePullPolicy: Always
           ports:
             - containerPort: 8009   # Spring Boot application port (assuming it's running on 8080)
